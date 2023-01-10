@@ -29,9 +29,10 @@ https://github.com/nodes-ios/notificationsClients
 ```
 
 ## 💻 Usage
+The package also includes an example project. If in doubt, check the code in the Example folder. 
 
 ### Integrating the clients in your dependencies / environment
-For production code, just use the `.live()` static property. 
+For production code, just use the `.live()` static property.
 
 ❗️ IMPORTANT❗️
  You must call the.`.live()`  of `UserNotificationsClient` syncronously before the app delegate's `didFinishWithLaunching` returns. This makes sure the correct delegate is assigned to the `UNUserNotificationCenter.current()` and therefore the app can react to push notifications when opened from suspended state. 
@@ -49,7 +50,7 @@ func application(
 }
 
 func setupAppEnvironment() {
-    let environment = AppEnvironment(remoteNotificationsClient: RemoteNotificationsClient.live(),
+    let environment = AppEnvironment(remoteNotificationsClient: RemoteNotificationsClient.live,
                                      userNotificationsClient: UserNotificationsClient.live())
 }
 ```
@@ -112,10 +113,10 @@ See the `Testing` DocC article inside the targets.
 
 ## Why the heck is Firebase not integrated in this already? 🔥
 Two reasons: 
-1. `FirebaseMessaging` works unreliably outside the app's main target. You really want to set it up inside your app delegate. 
+1. `FirebaseMessaging` works unreliably outside the app's main target. You really want to set it up inside your app's delegate. 
 2. This is a generic implementation that should work regardless the push notifications source.
 
-If you want to quickly integrate `FirebaseMessaging` with this, is most cases you just need to: 
+If you want to quickly integrate `FirebaseMessaging` with this, in most cases you just need to: 
 - Configure Firebase
 - Assign the Messaging delegate
 - Send the Firebase token to your backend
