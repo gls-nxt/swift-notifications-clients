@@ -18,9 +18,9 @@ extension RemoteNotificationsClient {
     /// 2. Override only those properties that should used in the test with your test logic.
     /// 3. Calling any other property will fail the test thus pointing to a non desired dependency usage.
     public static let failing = Self(
-        isRegisteredForRemoteNotifications: XCTUnimplemented("\(Self.self).isRegisteredForRemoteNotifications", placeholder: false),
-        registerForRemoteNotifications: XCTUnimplemented("\(Self.self).unregisterForRemoteNotifications method not implemented.", placeholder: Void()),
-        unregisterForRemoteNotifications: XCTUnimplemented("\(Self.self).unregisterForRemoteNotifications method not implemented.", placeholder: Void())
+        isRegisteredForRemoteNotifications: unimplemented("\(Self.self).isRegisteredForRemoteNotifications", placeholder: false),
+        registerForRemoteNotifications: unimplemented("\(Self.self).unregisterForRemoteNotifications method not implemented.", placeholder: Void()),
+        unregisterForRemoteNotifications: unimplemented("\(Self.self).unregisterForRemoteNotifications method not implemented.", placeholder: Void())
     )
     
     /// Empty mocks object

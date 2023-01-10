@@ -16,12 +16,12 @@ extension UserNotificationClient {
     /// 1. Start with this failing object.
     /// 2. Override only those properties that should used in the test with your test logic.
     /// 3. Calling any other property will fail the test thus pointing to a non desired dependency usage.
-    public static let failing = Self.init(addRequest: XCTUnimplemented("\(Self.self).addRequest", placeholder: Void()),
-                                          delegate: XCTUnimplemented("\(Self.self).delegate", placeholder: .fatalFail),
-                                          getAuthorizationStatus: XCTUnimplemented("\(Self.self).getAuthorizationStatus",placeholder: .denied),
-                                          removeDeliveredNotifications: XCTUnimplemented("\(Self.self).removeDeliveredNotifications", placeholder: Void()),
-                                          removePendingRequests: XCTUnimplemented("\(Self.self).removePendingRequests", placeholder: Void()),
-                                          requestAuthorization: XCTUnimplemented("\(Self.self).requestAuthorization", placeholder: false))
+    public static let failing = Self.init(addRequest: unimplemented("\(Self.self).addRequest"),
+                                          delegate: unimplemented("\(Self.self).delegate", placeholder: .fatalFail),
+                                          getAuthorizationStatus: unimplemented("\(Self.self).getAuthorizationStatus",placeholder: .denied),
+                                          removeDeliveredNotifications: unimplemented("\(Self.self).removeDeliveredNotifications", placeholder: Void()),
+                                          removePendingRequests: unimplemented("\(Self.self).removePendingRequests", placeholder: Void()),
+                                          requestAuthorization: unimplemented("\(Self.self).requestAuthorization", placeholder: false))
 
     /// Empty mocks object
     ///

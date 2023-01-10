@@ -14,7 +14,7 @@ let package = Package(
                       "UserNotificationsClient"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.2.1"),
+        .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.8.0"),
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
