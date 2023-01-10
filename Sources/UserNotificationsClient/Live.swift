@@ -9,7 +9,8 @@ import Foundation
 import UserNotifications
 
 extension UserNotificationClient {
-    
+    private static let notificationDelegate = UserNotificationClient.UserNotificationsDelegate()
+
     /// Transforms the UNUserNotificationCenter APIs into the async UserNotificationClient interface
     ///
     /// ❗️ IMPORTANT ❗️
@@ -20,7 +21,6 @@ extension UserNotificationClient {
     /// before the `didFinishLaunching` method returns. This way the app can react to the push notifications even when opened from a suspended state.
     /// - Returns: Working implementation of the UserNotificationClient
     public static func live() -> Self {
-        let notificationDelegate = UserNotificationClient.UserNotificationsDelegate()
         let userNotificationCenter = UNUserNotificationCenter.current()
         userNotificationCenter.delegate = notificationDelegate
         let delegate = AsyncStream { continuation in
@@ -52,7 +52,7 @@ extension UserNotificationClient {
         var continuation: AsyncStream<UserNotificationClient.DelegateEvent>.Continuation?
         
         deinit {
-            print("🍏 DEINIT")
+            print("📬❗️ UserNotificationsDelegate deinitialized. You will no longer receive notification events.")
         }
         
         public func userNotificationCenter(
