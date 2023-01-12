@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import Dependencies
 
 /// Interface for a client that manages notification-related activities for your app.
 ///
@@ -41,4 +42,20 @@ extension UserNotificationClient {
         case openSettingsForNotification(UNNotification?)
         case willPresentNotification(UNNotification, completionHandler: @Sendable (UNNotificationPresentationOptions) -> Void)
     }
+}
+
+extension UserNotificationClient: DependencyKey {
+  public static let liveValue = UserNotificationClient.live()
+  #if DEBUG
+  public static let previewValue = UserNotificationClient.noop
+  public static let testValue = UserNotificationClient.failing
+  #endif
+}
+
+
+public extension DependencyValues {
+  var userNotificationClient: UserNotificationClient {
+    get { self[UserNotificationClient.self] }
+    set { self[UserNotificationClient.self] = newValue }
+  }
 }

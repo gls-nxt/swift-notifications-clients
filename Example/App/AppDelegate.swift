@@ -7,8 +7,10 @@
 
 import AppFeature
 import Combine
+import Dependencies
 import SwiftUI
 import UserNotificationsClient
+import RemoteNotificationsClient
 
 @main
 final class AppDelegate: NSObject, UIApplicationDelegate {
@@ -43,24 +45,30 @@ extension SceneDelegate {
         // The user notification client needs to be initialized here at the app start
         // to assign the UNNotificationCenter delegate soon enough to react to events
         // coming from the notifications that opened the app
-        let environment = AppEnvironment(remoteNotificationsClient: .live,
-                                         userNotificationsClient: .live())
+        let remoteNotificationsClient = RemoteNotificationsClient.live
+        let userNotificationsClient = UserNotificationClient.live()
 
-        let vm = AppViewModel(environment: environment)
+        let vm = withDependencies {
+            $0.remoteNotificationsClient = remoteNotificationsClient
+            $0.userNotificationClient = userNotificationsClient
+        } operation: {
+            AppViewModel()
+        }
+
         let appView = AppView(viewModel: vm)
         
         // Listen to the notification events and handle them
         Task {
-            for await event in environment.userNotificationsClient.delegate() {
+            for await event in userNotificationsClient.delegate() {
                 handleNotificationEvent(event, appViewModel: vm)
             }
         }
         
         // Register for remote notifications if the user granted the permissions
         Task {
-            let allowed = await (environment.userNotificationsClient.getAuthorizationStatus() == .authorized)
+            let allowed = await (userNotificationsClient.getAuthorizationStatus() == .authorized)
             if allowed {
-                environment.remoteNotificationsClient.registerForRemoteNotifications()
+                remoteNotificationsClient.registerForRemoteNotifications()
             }
         }
 

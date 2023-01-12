@@ -55,6 +55,12 @@ func setupAppEnvironment() {
 }
 ```
 
+Both the `RemoteNotificationsClient` and the `UserNotificationsClient` are already prepared for integration using the [PointFree Dependencies library](https://github.com/pointfreeco/swift-dependencies). You can also define them as: 
+```swift
+@Dependency(\.remoteNotificationsClient) var remoteNotificationsClient
+@Dependency(\.userNotificationClient) var userNotificationsClient
+```
+
 ### Requesting the push notifications authorization
 ```swift
 func requestPushAuthorization() async {
